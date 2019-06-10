@@ -1,0 +1,95 @@
+{% extends 'mybase.html' %}
+{% load static %} 
+{% block content %}
+{% block content_head %}
+
+<script type="text/javascript" src="{% static 'js/js/jquery-3.3.1.min.js'%}"></script>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page"><b>List Of Uploaded Documents</b></li>
+    </ol>
+  </nav>
+
+{% endblock %}
+<br>
+ 
+<table id="dtBasicExample" class="table  table-bordered table-responsive-md" cellspacing="0" width="100%">
+	<thead class="text-dark" style="background-color: #5F7CDD;">
+		<tr>
+			<th><b>Unit</b></th>
+			<th><b>Period</b></th>
+			<th><b>Cover</b></th>
+			<th><b>Tittle</b></th>
+			<th><b>Author</b></th>
+			<th><b>Download</b></th>
+			<th><b>Delete</b></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for book in books%}
+		<tr>
+			<td>{{ book.Unit }}</td>
+				<td>{{ book.Period }}</td>
+			<td>
+			
+				{% if book.cover %}
+				<img src="{{ book.cover.url }}" alt="{{ book.tittle }}" style="width: 100px">
+				{% else %}
+				<span class="text-muted">No Cover</span>
+				{% endif %}
+			</td>
+			
+			<td>{{ book.title }}</td>
+			<td>{{ book.author }}</td>
+		
+			<td><a href="{{ book.pdf.url }}" class="btn btn-outline-success btn-sm" target="_blank"> <i class="fas fa-download"></i></a>
+			</td>
+			<td>
+				<form method="POST" action="{% url 'delete_book' book.pk %}">
+					{% csrf_token %}
+					<button type="submit" class="btn btn-outline-danger btn-sm" ><i class="far fa-trash-alt"></i></button>
+					<!-- reply <i class="fas fa-reply"></i>
+					message <i class="fas fa-envelope"></i>
+					
+					reply1 
+ -->
+
+				</form>
+				</td>
+		</tr>
+		{% endfor %}
+		
+	</tbody>
+	<tfoot style="background-color:  #5F7CDD;">
+    <tr>
+     		<th><b>Unit</b></th>
+			<th><b>Period</b></th>
+			<th><b>Cover</b></th>
+			<th><b>Tittle</b></th>
+			<th><b>Author</b></th>
+			<th><b>Download</b></th>
+			<th><b>Delete</b></th>
+    </tr>
+  </tfoot>
+		
+</table>
+<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+
+<!-- <script>
+$(document).ready(function () {
+$('#dtBasicExample').DataTable();
+$('.dataTables_length').addClass('bs-select');
+});
+</script> -->
+<script>
+	$(document).ready(function() {
+    $('#dtBasicExample').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script>
+
+{% endblock %}

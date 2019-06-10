@@ -1,0 +1,65 @@
+{% extends 'base2.html' %} 
+{% block sidenav %}
+{% block content_header %}
+
+<h1>Register courses</h1>
+
+{% endblock %}
+<div class="container-fluid">
+<div class="row" style="width: 200px;">
+<div class="col">
+<table class="table mb-0 "style="background-color: whitesmoke;">
+	<thead>
+		<tr>
+			<th>Computer Sciences Courses</th>
+			
+			
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<a href="{% url 'Year1sem1' %}"><i class="fas fa-folder-open pr-2"
+        aria-hidden="true"></i><b>Y1S1</b></a>			
+			</td>
+		</tr>
+		<tr>
+					<td><a href="{% url 'Year1sem2' %}"><i class="fas fa-folder-open pr-2"
+        aria-hidden="true"></i><b>Y1S2</b></a>	</td>
+				</tr>
+				<tr>
+			<td><a href="{% url 'Year2sem1' %}"><i class="fas fa-folder-open pr-2"
+        aria-hidden="true"></i><b>Y2S1</b></a>	</td>
+		</tr>
+		<tr>
+			<td><!-- <a>Y2S2</a> -->
+			<a href="{% url 'Year2sem2' %}"><i class="fas fa-folder-open pr-2"
+        aria-hidden="true"></i><b>Y2S2</b></a>	</td>
+		</tr>
+		<tr>
+			<td><a href="{% url 'Year3sem1' %}"><i class="fas fa-folder-open pr-2"
+        aria-hidden="true"></i><b>Y3S1</b></a>	</td>
+		</tr>
+		<tr>
+			<td><a href="{% url 'Year3sem2' %}"><i class="fas fa-folder-open pr-2"
+        aria-hidden="true"></i><b>Y3S2</b></a>	</td>
+		</tr>
+		<tr>
+			<td><a href="{% url 'Year4sem1' %}"><i class="fas fa-folder-open pr-2"
+        aria-hidden="true"></i><b>Y4S1</b></a>	</td>
+		</tr>
+		<tr>
+			<td><a href="{% url 'Year4sem2' %}"><i class="fas fa-folder-open pr-2"
+        aria-hidden="true"></i><b>Y4S2</b></a>	</td>
+		
+		</tr>
+	
+		
+	</tbody>
+		
+</table>
+</div>
+</div>
+</div>
+
+{% endblock %}

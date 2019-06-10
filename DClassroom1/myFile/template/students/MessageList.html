@@ -1,0 +1,76 @@
+{% extends 'mybase.html'%}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{%load static %}
+
+
+{% block content%} 
+
+
+	       
+    </head>
+
+      
+		<form method="post" action="Commsearch"enctype= "multipart/form-data">
+		{% csrf_token%}
+             <p class="row justify-content-center">
+                   <input type="text" name="date_away" class="form-control" id="date" required readonly="readonly" clickable="clickable" autocomplete="off" style="width:750px;" placeholder="Search">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                   <input type="submit" class="btn btn-outline-success " name="submit" value="submit"  onClick="submit(this.form)"  />
+          </p>
+           <script>
+                $(function() {
+                   $( "#date" ).datepicker({ dateFormat: 'yy-mm-dd'});
+               
+                 });
+                </script>
+             
+{% include 'students/mess_header.html' with active='taken' %}
+           
+            
+  <div class="container"  style="margin-right:1150px; ">
+
+  
+    	
+	
+  <p> <i></i></p>
+	<!-- <a class="btn btn-outline-success"href="{% url 'Reply' %}"><i>Reply</i></a> -->
+  
+
+<table id="dtBasicExample" class="table   table-responsive-md" cellspacing="0" width="100%" style="margin-right: 500px; 
+">
+  <thead class="text-dark" >
+    <tr>
+      <th></th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    {% for comm in mess %}
+
+     <tr>
+      <td><p><strong><a href="{% url 'view_mess' comm.id %}" style="font-size: 22px;">{{comm.Title}} from {{comm.lecturer}}    <i style="color: grey;font-size: 15px;">{{comm.date}}</i> </strong></a></p></td>
+      
+    
+    </tr>
+    
+   
+    {% endfor %}
+    
+  </tbody>
+
+    
+</table>
+
+</div>
+
+
+</div>
+ 
+
+
+</form>
+
+	
+	
+{% endblock %}

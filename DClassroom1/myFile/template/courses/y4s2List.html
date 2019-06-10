@@ -1,0 +1,59 @@
+{% extends 'mybase.html' %} 
+{% block content %}
+{% block content_header %}
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page"><b>Year4 Semester2 courses</b></li>
+    </ol>
+  </nav>
+
+{% endblock %}
+<br><br>
+<table id="dtBasicExample" class="table  table-bordered table-responsive-md" cellspacing="0" width="100%">
+	<thead class="text-dark" style="background-color: rgb(119,136,153);">
+		<tr>
+			<th>Period</th>
+			<th>Code</th>
+			<th>Tittle</th>
+			<th>Instructor</th>
+			<th>Cf</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		{% for unit in y4s2 %}
+		<tr>
+			<td>
+				{{ unit.Period}}
+			
+			</td>
+			<td>
+				{{ unit.Code}}
+			
+			</td>
+			<td>{{ unit.Title }}</td>
+			<td>{{ unit.Instructor }}</td>
+			<td>{{unit.Cf}}
+			</td>
+		
+		</tr>
+		{% endfor %}
+		
+	</tbody>
+	<script>
+  $(document).ready(function() {
+    $('#dtBasicExample').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script>
+		
+</table>
+
+
+{% endblock %}

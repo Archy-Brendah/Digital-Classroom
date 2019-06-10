@@ -1,0 +1,13 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Reset Your Password Confirmation
+From: webmaster@localhost
+To: brendahachieng68@gmail.com
+Date: Fri, 17 May 2019 11:12:05 -0000
+Message-ID: 
+ <155809152592.13468.5421713111072958565@brendah.compsci.egerton.ac.ke>
+
+Someone asked for password reset for email brendahachieng68@gmail.com. Follow the link below:
+http://localhost:8000/accounts/reset/MzA/56e-2543461e8b80b47e83b9/
+-------------------------------------------------------------------------------

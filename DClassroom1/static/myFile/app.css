@@ -1,0 +1,21 @@
+
+<style>
+      #hero{
+       background-image: url("images/kisumu.jpg");
+        background-size:cover;
+      }
+      .h-txt{
+        padding:20% 2%;
+      }
+        .bg-dark{
+          transition: 500ms ease;
+          background:transparent !important;
+        }
+        .bg-dark.scrolled{
+          background:#2E8B57 !important;
+        }
+        .lead{
+          font-family: "Lucida console";
+          
+        }
+      </style>

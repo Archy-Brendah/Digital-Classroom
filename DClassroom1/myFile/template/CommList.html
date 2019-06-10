@@ -1,0 +1,117 @@
+{% extends 'mybase.html'%}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{%load static %}
+
+
+{% block content%} 
+
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.1/css/mdb.min.css" rel="stylesheet">
+        
+        
+        
+        <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      
+ 
+                  <!--JQuery--> 
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+                  <!--Bootstrap core JavaScript--> 
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+                  <!--MDB core JavaScript--> 
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.1/js/mdb.min.js"></script>
+        
+        
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+         
+        
+       
+    </head>
+
+      
+           
+		<form method="post" action="Commsearch"enctype= "multipart/form-data">
+		{% csrf_token%}
+             <p class="row justify-content-center">
+                   <input type="text" name="date_away" class="form-control" id="date" required readonly="readonly" clickable="clickable" autocomplete="off" style="width:750px;" placeholder="Search">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                   <input type="submit" class="btn btn-outline-default " name="submit" value="submit"  onClick="submit(this.form)"  />
+          </p>
+           <script>
+                $(function() {
+                   $( "#date" ).datepicker({ dateFormat: 'yy-mm-dd'});
+               
+                 });
+                </script>
+             
+
+            
+  <div class="container"  style="margin-right:1150px; ">
+
+  
+    	
+	
+  
+  <p> <i></i></p>
+	<!-- <a class="btn btn-outline-success"href="{% url 'Reply' %}"><i>Reply</i></a> -->
+<hr>
+<table id="dtBasicExample" class="table   table-responsive-md" cellspacing="0" width="100%" style="margin-right: 500px; 
+">
+  <thead class="text-dark" >
+    <tr>
+      <th style="font-size: 22px;color:rgb(165,42,42)"><i class="fas fa-bullhorn"></i> Announcements</th>
+      <th></th>
+
+      
+    </tr>
+  </thead>
+  <hr>
+  <tbody style="background-color: #f2f3f4"> 
+    {% for comm in comms %}
+      
+     {{ comms.Title }}
+
+   
+
+     <tr>
+      <td ><p class="divbutton"><strong><a href="{% url 'view_message' comm.id %}" style="font-size: 22px;">{{comm.Title}} from {{comm.lecturer}}    <i style="color: grey;font-size: 15px;">{{comm.date}}</i> </strong></a></p></td>
+      <td >
+        <form method="POST" action="{% url 'delete_comm' comm.pk %}" class="dbutt">
+          {% csrf_token %}
+          <button  type="submit" class="btn btn-outline-unique btn-sm" ><i class="far fa-trash-alt"></i></button>
+          <!-- reply <i class="fas fa-reply">
+ -->
+
+        </form></td>
+    
+    </tr>
+   
+  
+    {% endfor %}
+    
+  </tbody>
+
+</table>
+
+</div>
+
+
+</div>
+ 
+
+
+	
+	
+
+
+
+</form>
+
+	
+
+{% endblock %}

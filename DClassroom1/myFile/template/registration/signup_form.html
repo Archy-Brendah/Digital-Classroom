@@ -1,0 +1,40 @@
+{% extends 'registration/login.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row justify-content-center">
+	<div class="col-6">
+		<div class="card" style="background-color: whitesmoke">
+			<div class="card-body">
+      <h2>Sign up as a {{ user_type }}</h2>
+      <form method="post" novalidate >
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-outline-success">Sign up</button>
+      </form>
+    </div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+  var regex = /^[a-zA-Z0-9\/]+$/ : /^[a-zA-Z0-9]+$/;
+  function alphanumeric(inputtxt)
+{ 
+var letters = /^[0-9a-zA-Z]+$/;
+if(inputtxt.value.match(letters))
+{
+alert('Your registration number have accepted : you can try another');
+document.form1.text1.focus();
+return true;
+}
+else
+{
+alert('Please input alphanumeric characters only');
+return false;
+}
+}
+
+</script>
+{% endblock %}

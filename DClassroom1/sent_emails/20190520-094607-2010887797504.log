@@ -1,0 +1,12 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Reset Your Password Confirmation
+From: webmaster@localhost
+To: brendahachieng68@gmail.com
+Date: Mon, 20 May 2019 16:46:07 -0000
+Message-ID: <155837076789.32.15638276721980042161@brendah>
+
+Someone asked for password reset for email brendahachieng68@gmail.com. Follow the link below:
+http://localhost:8000/accounts/reset/MzA/56h-6a338fa859a8800d9f9d/
+-------------------------------------------------------------------------------

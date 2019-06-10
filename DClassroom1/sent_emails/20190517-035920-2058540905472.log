@@ -1,0 +1,13 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Reset Your Password Confirmation on 127.0.0.1:8000
+From: webmaster@localhost
+To: ondiekbrendah@gmail.com
+Date: Fri, 17 May 2019 10:59:20 -0000
+Message-ID: 
+ <155809076080.13468.12614523993998404916@brendah.compsci.egerton.ac.ke>
+
+Someone asked for password reset for email ondiekbrendah@gmail.com. Follow the link below:
+http://localhost:8000/accounts/reset/MjY/56e-05d5b99402497c6f24d2/
+-------------------------------------------------------------------------------

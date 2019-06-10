@@ -1,0 +1,39 @@
+{% extends 'mybase.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block content %}
+ <script src="http://code.jquery.com/jquery-latest.js"></script>
+<!-- <script src="{% static 'myFile/reply.js' %}" type="text/javascript"></script> -->
+	<h3>Send your message </h3>
+	<script type ="text/javascript">
+
+		$(document).ready(function(){
+			$("#but").click(function(){
+				$("#textID").toggle(500);} 
+
+			);
+			// $("#sends").click(function(){
+			// 	$("#textID").hide(500);
+			// });
+});	
+var theSubmitButton = document.getElementById('sends');
+
+    theSubmitButton.onclick = function() {
+        var theFormItself = 
+            document.getElementById('textID');
+        theFormItself.style.display = 'none';
+                
+    }	
+</script>
+	<button id="but" class="btn btn-outline-success"><i class="fas fa-reply-all"></i></button>
+	<form id="textID" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{form|crispy}}
+		
+		<button id="sends" type="submit" class="btn btn-outline-success">Send</button>
+	</form>
+
+
+
+{% endblock%}

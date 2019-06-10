@@ -1,0 +1,44 @@
+{% extends 'mybase.html' %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page"><b>List Of Uploaded Links</b></li>
+    </ol>
+  </nav>
+  <div>
+		<table id="dtBasicExample" class="table  table-bordered table-responsive-md" cellspacing="0" width="100%">
+	<thead class="text-dark" style="background-color:rgb(119,136,153);">
+		<tr>
+			<th><b>Unit</b></th>
+			<th><b>Period</b></th>
+			<th><b>Tittle</b></th>
+			
+			<th><b>Video Link</b></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+{% for ylink in ylinks %}
+
+	<td><p>{{ylink.Unit}}</p></td>
+	<td><p>{{ylink.Period}}</p></td>
+	<td><p>{{ylink.title}}</p></td>
+	
+	
+	<td><p>Click the youtbe link....<a href="{{ylink.mylink}}"><strong>{{ylink.mylink}}</strong></a></p></td>
+
+	</tr>
+	{%endfor%}
+</tbody>
+</table>s
+<script>
+$(document).ready(function () {
+$('#dtBasicExample').DataTable();
+$('.dataTables_length').addClass('bs-select');
+});
+</script>
+
+
+{% endblock %}
+

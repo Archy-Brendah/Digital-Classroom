@@ -1,0 +1,53 @@
+{% extends 'mybase.html' %}
+
+{% load crispy_forms_tags humanize %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'teachers:quiz_change_list' %}">My Quizzes</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'teachers:quiz_change' quiz.pk %}">{{ quiz.name }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Results</li>
+    </ol>
+  </nav>
+  <h2 class="mb-3">{{ quiz.name }} Results</h2>
+
+  <div class="card">
+    <div class="card-header">
+      <strong style="font-size: 20px">Taken Quizzes</strong>
+      <span class="badge badge-pill badge-success float-right" style="font-size: 18px">Mean Score: {{ quiz_score.average_score|default_if_none:0.0 }}</span>
+    </div>
+    <br><br><br>
+    <table id="dtBasicExample" class="table  table-bordered table-responsive-md" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th><b>Student</b></th>
+          <th><b>Date</b></th>
+          <th><b>Score</b></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for taken_quiz in taken_quizzes %}
+          <tr>
+            <td>{{ taken_quiz.student.user.username }}</td>
+            <td>{{ taken_quiz.date|naturaltime }}</td>
+            <td>{{ taken_quiz.score }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="card-footer text-muted">
+      Total respondents: <strong>{{ total_taken_quizzes }}</strong>
+    </div>
+  </div>
+  <script>
+  $(document).ready(function() {
+    $('#dtBasicExample').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script>
+{% endblock %}

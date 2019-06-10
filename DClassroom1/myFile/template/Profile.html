@@ -1,0 +1,36 @@
+{% extends 'mybase.html '%}
+{% load static %}
+{% block content%}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+<div class="row justify-content-center">
+	<div class="col-lg-10 col-md-12">
+		<div class="card mb-4">
+			<div class="modal-header">
+        <img src="{% static 'images/ppic.png' " alt="avatar">
+        <h3>{{user.last_name}}</h3>
+
+      </div>
+
+			<!-- <img src="{% static 'images/breshh.jpg' %} " alt="My image" /> -->
+			<div class="card-body">
+      	
+        <div class="card-body">
+
+<br>
+<br>
+<b>USERNAME</b>
+<input type="" class="form-control" value="{{user.username}}"/><br>
+<b>EMAIL</b>
+<input type="" value="{{user.email}}" class="form-control"><br>
+<b>REGNO</b>
+<input type="" value="{{user.first_name}}" class="form-control"><br>
+
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

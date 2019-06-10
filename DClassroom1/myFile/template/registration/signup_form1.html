@@ -1,0 +1,21 @@
+{% extends 'registration/login.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row justify-content-center" >
+	<div class="col-6">
+		<div class="card" style="background-color: whitesmoke">
+			<div class="card-body">
+      <h2>Sign up as a Lecturer</h2>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-outline-success">Sign up</button>
+      </form>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

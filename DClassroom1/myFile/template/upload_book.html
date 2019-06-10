@@ -1,0 +1,22 @@
+{% extends 'mybase.html' %} 
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row justify-content-center">
+	<div class="col-6">
+		<div class="card">
+			<div class="card-body">
+<h1>Upload Documents</h1>
+
+<form method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	
+	{{ form|crispy }}
+	<button type="submit" class="btn btn-outline-success">Upload File</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
