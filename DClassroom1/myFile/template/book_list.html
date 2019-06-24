@@ -14,10 +14,10 @@
 <br>
  
 <table id="dtBasicExample" class="table  table-bordered table-responsive-md" cellspacing="0" width="100%">
-	<thead class="text-dark" style="background-color: #5F7CDD;">
+	<thead class="text-dark" style="background-color: rgb(119,136,153);">
 		<tr>
 			<th><b>Unit</b></th>
-			<th><b>Period</b></th>
+			<!-- <th><b>Period</b></th> -->
 			<th><b>Cover</b></th>
 			<th><b>Tittle</b></th>
 			<th><b>Author</b></th>
@@ -29,7 +29,7 @@
 		{% for book in books%}
 		<tr>
 			<td>{{ book.Unit }}</td>
-				<td>{{ book.Period }}</td>
+				<!-- <td>{{ book.Period }}</td> -->
 			<td>
 			
 				{% if book.cover %}
@@ -60,10 +60,10 @@
 		{% endfor %}
 		
 	</tbody>
-	<tfoot style="background-color:  #5F7CDD;">
+	<tfoot style="background-color:  rgb(119,136,153);">
     <tr>
      		<th><b>Unit</b></th>
-			<th><b>Period</b></th>
+			<!-- <th><b>Period</b></th> -->
 			<th><b>Cover</b></th>
 			<th><b>Tittle</b></th>
 			<th><b>Author</b></th>

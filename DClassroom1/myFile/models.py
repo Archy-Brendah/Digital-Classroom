@@ -13,7 +13,7 @@ class User(AbstractUser):
     is_teacher = models.BooleanField(default=False)
     is_superuser=models.BooleanField(default=False)
     def __str__(self):
-    	return self.username
+    	return str(self.username)
 
    
 
@@ -38,62 +38,51 @@ class Teacher(models.Model):
 	def __str__(self):
 		return self.user.username
 		
-class Studentrg(models.Model):
-    
-    
-    interests = models.ManyToManyField(Subject, related_name='interested_student')
     
 class Teacherid(models.Model):
     
     Empid=models.CharField(max_length=100)
    
 
+class Period(models.Model):
+	Period_time=models.CharField(max_length=20)
+	def __str__(self):
+		return str(self.Period_time)
 
 
+	
 
 # Create your models here.
 # Create your models here.s
-
-
-
-
-
-class Period(models.Model):
-	Year_semester=(
-		('y1s1','year1semester1'),
-		('y1s2','year1semester2'),
-		('y2s1','year2semester1'),
-		('y2s2','year2semester2'),
-		('y3s1','year3semester1'),
-		('y3s2','year3semester2'),
-		('y4s1','year4semester1'),
-		('y4s2','year4semester2')
-		)
-	# name=models.CharField(max_length=100)
-
-	Year_semester=models.CharField(max_length=4,choices=Year_semester, unique=True)
-	# 
+class Course(models.Model):
+	course_code = models.CharField(max_length=100)
+	course_title = models.CharField(max_length=100)
+	L = models.PositiveIntegerField()
+	P =  models.PositiveIntegerField()
+	T =  models.PositiveIntegerField()
+	CF = models.FloatField()
+	Period= models.ForeignKey(Period, on_delete=models.CASCADE)
+	objects = models.Manager()
 
 	def __str__(self):
-		return self.Year_semester
+		return str(self.id)
 
 
 
 class Unit(models.Model):
 	Period=models.ForeignKey(Period,on_delete=models.CASCADE)
-	Code=models.CharField(max_length=100)
-	Title=models.CharField(max_length=100)
-	Instructor=models.CharField(max_length=100)
-	Cf=models.CharField(max_length=100)
+	course = models.ForeignKey(Course, on_delete=models.CASCADE)
+	Instructor=models.ForeignKey(User,on_delete=models.CASCADE)
+	objects=models.Manager()
 	def __str__(self):
-		return self.Title
+		return str(self.course)
 
 
 
 class Book(models.Model):
 	
 	Unit=models.ForeignKey(Unit,on_delete=models.CASCADE)
-	Period=models.ForeignKey(Period,on_delete=models.CASCADE)
+	# Period=models.ForeignKey(Period,on_delete=models.CASCADE)
 	title= models.CharField(max_length=100)
 	author=models.CharField(max_length=100)
 	pdf=models.FileField(upload_to='books/pdfs/')
@@ -108,7 +97,7 @@ class Book(models.Model):
 class YLinks(models.Model):
 	
 	Unit=models.ForeignKey(Unit,on_delete=models.CASCADE)
-	Period=models.ForeignKey(Period,on_delete=models.CASCADE)
+	# Period=models.ForeignKey('myFile.Course',on_delete=models.CASCADE)
 	mylink=models.URLField(max_length=200)
 	title=models.CharField(max_length=100, default='comp333')
 class Message(models.Model):
@@ -128,7 +117,7 @@ class Message(models.Model):
 class Quiz(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='quizzes')
     name = models.CharField(max_length=255)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='quizzes')
+    subject = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='quizzes')
 
     def __str__(self):
         return self.name
@@ -151,7 +140,7 @@ class Answer(models.Model):
         return self.text
 
 class Comms(models.Model):
-	subject=models.ForeignKey(Subject,on_delete=models.CASCADE)	
+	subject=models.ForeignKey(Course,on_delete=models.CASCADE)	
 	Title=models.CharField(max_length=100)
 	Body=models.TextField()
 	lecturer=models.ForeignKey(User, on_delete=models.CASCADE)
@@ -172,7 +161,7 @@ class Replys(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     quizzes = models.ManyToManyField(Quiz, through='TakenQuiz')
-    interests = models.ManyToManyField(Subject, related_name='interested_students')
+    interests = models.ManyToManyField(Course, null=True, blank=True, related_name='interested_students')
 
     def get_unanswered_questions(self, quiz):
         answered_questions = self.quiz_answers \
@@ -195,3 +184,6 @@ class TakenQuiz(models.Model):
 class StudentAnswer(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='quiz_answers')
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='+')
+
+
+

@@ -104,7 +104,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'root',
         'PASSWORD': '',
-        'NAME': 'dclassroom',
+        'NAME': 'dclassroom1',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS':{

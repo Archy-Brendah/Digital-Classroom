@@ -6,7 +6,7 @@
 	<div class="col-6">
 		<div class="card" style="background-color: whitesmoke">
 			<div class="card-body">
-	<form method="post" enctype="multipart/form-data">
+	<form method="post" enctype="multipart/form-data" id="unit_data" data-cities-url="{% url 'ajax_load_cities' %}" novalidate>
 		{% csrf_token %}
 		{{form|crispy}}
 		
@@ -17,4 +17,6 @@
 </div>
 </div>
 </div>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+  
 {% endblock%}

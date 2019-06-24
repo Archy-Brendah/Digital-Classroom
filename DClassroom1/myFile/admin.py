@@ -15,8 +15,9 @@ admin.site.register(Answer)
 admin.site.register(TakenQuiz)
 admin.site.register(StudentAnswer)
 admin.site.register(Subject)
-admin.site.register(Studentrg)
 admin.site.register(Teacher)
 admin.site.register(Teacherid)
 admin.site.register(Message)
+admin.site.register(Course)
+
 

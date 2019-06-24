@@ -1,0 +1,20 @@
+{% extends 'mybase.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+	<h3> </h3>
+	<div class="row justify-content-center">
+	<div class="col-6">
+		<div class="card" style="background-color: whitesmoke">
+			<div class="card-body">
+	<form method="post" enctype="multipart/form-data" >
+		{% csrf_token %}
+		<input type="file" name="courses">
+		
+		<button type="submit" class="btn btn-outline-success">Save</button>
+	</form>
+	
+</div>
+</div>
+</div>
+</div>
+{% endblock%}

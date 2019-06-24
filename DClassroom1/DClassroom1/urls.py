@@ -75,8 +75,13 @@ urlpatterns = [
     path('unit/',myFile.unit,name='unit'),
     path('unitlisty/',myFile.unit_List,name='unitlisty'),
     path('unitlist/',myFile.unitlist,name='unitlist'),
+    path('unit/registercourse/',myFile.RegisterCourse,name='registercourse'),
+    path('registerStudent/',myFile.RegisterStudent,name='register_student'),
 
-    path('period/',myFile.period,name='period'),
+
+    path('ajax/load-cities/', myFile.load_cities, name='ajax_load_cities'),
+    path('ajax/load-course/', myFile.load_course, name='ajax_load_course'),
+   
    
     
     path('unitlist/y1s1list',myFile.Year1sem1_List,name='y1s1list'),
@@ -88,6 +93,7 @@ urlpatterns = [
     path('unitlist/y4s1list',myFile.Year4sem1_List,name='y4s1list'),
     path('unitlist/y4s2list',myFile.Year4sem2_List,name='y4s2list'),
     path('profile/',myFile.profile,name='profile'),
+    path('add/units/', myFile.MyUnit, name='create_units'),
 
     path('chat/',myFile.index,name='index'),
     re_path(r'^(?P<room_name>[^/]+)/$', myFile.room, name='room'),

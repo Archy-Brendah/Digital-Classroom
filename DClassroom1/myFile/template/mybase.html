@@ -53,25 +53,7 @@
 
   <div class="collapse navbar-collapse justify-content-end " id="navbarTogglerDemo03">
     {% if user.is_authenticated and user.is_superuser%}
-    <!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'home1' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>Home </b><span class="sr-only">(current)</span></a>
-        
-        <li class="nav-item active">
-        <a class="nav-link" href="{% url 'unit' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>Register units </b></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'book_list' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>View Learning Docs </b></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'unitlist' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>view Units</b></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'Comm' %}" style="font-size: 20px;color: rgb(255,255,255);"><i class="fas fa-envelope"></i></a>
-
-      </li>
-      
-      </ul> -->
+    
 <ul class="navbar-nav">
       <li class="nav-item ">
         <div >
@@ -96,34 +78,7 @@
      <div class="btn-group">
 
          {% elif user.is_authenticated and user.is_teacher%}
-    <!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'home1' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>Home </b><span class="sr-only">(current)</span></a>
-      </li>
-        <li class="nav-item active">
-        <a class="nav-link" href="{% url 'link' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>Upload Video </b></a>
-      </li>
-        <li class="nav-item active">
-        <a class="nav-link" href="{% url 'upload_book' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>Upload Documents </b></a>
-      
-       </li>
-        <li class="nav-item active">
-        <a class="nav-link" href="{% url 'unitlist' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>View Units </b></a>
-      </li>
-     
-      
-
- <li class="nav-item active">
-        <a class="nav-link" href="{% url 'teachers:quiz_change_list' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>Post Assignment </b></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'book_list' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>View Documents</b></a></li>
-        <li class="nav-item active">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'Comm' %}" style="font-size: 20px;color: rgb(255,255,255);"><i class="fas fa-envelope"></i></a>
-
-      </li>
-      </ul> -->
+    
       <ul class="navbar-nav">
       <li class="nav-item ">
         <div >
@@ -147,29 +102,7 @@
      </ul>
      <div class="btn-group">
       {% elif user.is_authenticated and user.is_student %}
-      <!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'home1' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>Home </b><span class="sr-only">(current)</span></a></li>
-        <li class="nav-item active">
-        <a class="nav-link" href="{% url 'book_list' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>View Documents</b></a></li>
-        <li class="nav-item active">
-        <a class="nav-link" href="{% url 'linklist' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>view links </b></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'unitlist' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>view Units </b></a>
-      </li>
-      
-      
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'students:quiz_list' %}" style="font-size: 24px; color: rgb(255,255,255);"><b>Assignment</b></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'Comm' %}" style="font-size: 20px;color: rgb(255,255,255);"><i class="fas fa-envelope"></i></a>
-
-      </li>
-      </ul> -->
-
-
+     
 
 
       <ul class="navbar-nav">
@@ -209,10 +142,10 @@
      	
 {% else %}
      <form class="form-inline my-2 my-lg-0">
-      <a class="btn btn-outline my-2 my-sm-0" href="{% url 'home' %}" style="font-size: 16px;color: rgb(255,255,255);">Home</a>
+      <a href="{% url 'home' %}" style="font-size: 16px;color: rgb(255,255,255);padding: 20px;">Home</a>
       
-    	<a class="btn btn-outline" href="{% url 'login' %}" style="font-size: 16px;color: rgb(255,255,255);">Login</a>
-      <a class="btn btn-outline my-2 my-sm-0" href="{% url 'signup' %}" style="font-size: 16px;color: rgb(255,255,255);">SignUp</a>
+    	<a href="{% url 'login' %}" style="font-size: 16px;color: rgb(255,255,255);padding: 20px;">Login</a>
+      <a href="{% url 'signup' %}" style="font-size: 16px;color: rgb(255,255,255);">SignUp</a>
 
       
     </form>
@@ -231,16 +164,16 @@
 
 <br><br><br>
   {% if user.is_authenticated and user.is_superuser%}
-   <a  href="{% url 'profile' %}" style=" color: rgb(0,0,0);"><small>{{user.username}}</small></b></a>
+   <!-- <a  href="{% url 'profile' %}" style=" color: rgb(0,0,0);"><small>{{user.username}}</small></b></a> -->
       
 
     
-        <a href="{% url 'home1' %}" style="font-size: 20px; color: rgb(0,0,0);"><b><i class="fas fa-home"></i> Home</b><span class="sr-only">(current)</span></a>
+        <a href="{% url 'profile' %}" style="font-size: 20px; color: rgb(0,0,0);"><b><i class="fas fa-home"></i> Home</b><span class="sr-only">(current)</span></a>
         
 
         <a  href="{% url 'unit' %}" style="font-size: 20px; color: rgb(0,0,0);"><b>Register units</b></a>
       
-        <!-- <a  href="{% url 'book_list' %}" style="font-size: 20px; color: rgb(0,0,0);"><b>View Learning Docs </b></a> -->
+        <a  href="{% url 'register_student' %}" style="font-size: 20px; color: rgb(0,0,0);"><b>View Registered student </b></a>
     
         <a  href="{% url 'unitlist' %}" style="font-size: 20px; color: rgb(0,0,0);"><b>View Units</b></a>
       
@@ -272,10 +205,10 @@
      <div class="btn-group">
 
          {% elif user.is_authenticated and user.is_teacher%}
-         <a  href="{% url 'profile' %}" style=" color: rgb(0,0,0);"><b><<small>{{user.username}}</small></b></a>
+         <!-- <a  href="{% url 'profile' %}" style=" color: rgb(0,0,0);"><b><<small>{{user.username}}</small></b></a> -->
       
   
-        <a  href="{% url 'home1' %}" style="font-size: 20px; color: rgb(0,0,0);"><b> Home</b> <span class="sr-only">(current)</span></a>
+        <a  href="{% url 'profile' %}" style="font-size: 20px; color: rgb(0,0,0);"><b><i class="fas fa-home"></i> Home</b> <span class="sr-only">(current)</span></a>
       
         <a  href="{% url 'link' %}" style="font-size: 20px; color: rgb(0,0,0);"><b>Upload Video</b></a>
       
@@ -293,6 +226,7 @@
     
         <a  href="{% url 'book_list' %}" style="font-size: 20px; color: rgb(0,0,0);"><b>View Documents</b></a></li>
          <a  href="{% url 'linklist' %}" style="font-size: 20px; color: rgb(0,0,0);"><b> View links</b> </a>
+           <a  href="{% url 'register_student' %}" style="font-size: 20px; color: rgb(0,0,0);"><b>Registered student </b></a>
           <a  href="{% url 'Message' %}" style="font-size: 20px; color: rgb(0,0,0);"><b>Inbox</b> </a>
           
         <a  href="{% url 'Comm' %}" style="font-size: 28px; color: rgb(0,0,0);"><i class="fas fa-mail-bulk"></i></i></a>
@@ -301,16 +235,17 @@
     
      <div class="btn-group">
       {% elif user.is_authenticated and user.is_student %}
-       <a  href="{% url 'profile' %}" style=" color: rgb(0,0,0); "><b>{{user.username}}</b></a>
+       <!-- <a  href="{% url 'profile' %}" style=" color: rgb(0,0,0); "><b>{{user.username}}</b></a> -->
       
       
-        <a  href="{% url 'home1' %}" style="font-size: 20px; color: rgb(0,0,0);"><b><i class="fas fa-home"></i> Home </b><span class="sr-only">(current)</span></a></li>
+        <a  href="{% url 'profile' %}" style="font-size: 20px; color: rgb(0,0,0);"><b><i class="fas fa-home"></i> Home </b><span class="sr-only">(current)</span></a></li>
         
         <a href="{% url 'student_book_list' %}" style="font-size: 20px; color: rgb(0,0,0);"><b><i class="fas fa-book-open"></i>  View Documents</b></a></li>
         
         <a  href="{% url 'linklist' %}" style="font-size: 20px; color: rgb(0,0,0);"><b><i class="fab fa-youtube"></i>  View links</b> </a>
-      
+         <a  href="{% url 'registercourse' %}" style="font-size: 20px; color: rgb(0,0,0);"><b> <i class="fas fa-gopuram"></i>  Register Units</b> </a>
         <a  href="{% url 'unitlist' %}" style="font-size: 20px; color: rgb(0,0,0);"><b> <i class="fas fa-gopuram"></i>  View Units</b> </a>
+          <a  href="{% url 'register_student' %}" style="font-size: 20px; color: rgb(0,0,0);"><b>Registered student </b></a>
       
         <a  href="{% url 'students:quiz_list' %}" style="font-size: 20px; color: rgb(0,0,0);"><b><i class="fas fa-pencil-alt"></i>  Assignment</b></a>
         <a  href="{% url 'MessageList' %}" style="font-size: 20px; color: rgb(0,0,0);"><b><i class="fas fa-arrow-down"></i></i>Inbox</b></a>
@@ -344,7 +279,7 @@
 
 </div>
 <br><br><br><br><br>
-<body style="background-image: {% static 'images/mbg.png'%}">
+
 <div class="container">
   
       
@@ -404,8 +339,48 @@
 
 
 "></script>
+<script>
+    $("#id_Period").change(function () {
+      var url = $("#unit_data").attr("data-cities-url");  // get the url of the `load_cities` view
+      var countryId = $(this).val();  // get the selected country ID from the HTML input
+      console.log(countryId)
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'Period': countryId       // add the country id to the GET parameters
+        },
+        success: function (data) { 
+          $("#id_course").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
 
 
+<script>
+    $("#id_Period").change(function () {
+      var url = $("#course_data").attr("data-c-url");  // get the url of the `load_cities` view
+      var countryId = $(this).val();  // get the selected country ID from the HTML input
+      console.log(countryId)
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'Period': countryId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $.each( response.data.counties,function (key, value) {
+   <input value="'+value.id+'">'+value.name+'/>;
+
+})
+          $("#id_interests").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
 
 
 </body>

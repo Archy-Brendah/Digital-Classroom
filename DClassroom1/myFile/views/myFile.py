@@ -80,6 +80,7 @@ def  upload(request):
 		context['url']= fs.url(name)
 	return render(request,'upload.html',context)
 
+
 def book_list(request):
 	SearchE=request.POST.get("search")
 	books = Book.objects.filter(lecturer=request.user)
@@ -92,18 +93,19 @@ def student_book_list(request):
 @login_required
 @teacher_required
 def upload_book(request):
+	# my_units = Unit.objects.filter(Instructor=user.request.username)
 	if request.method =='POST':
-		form = BookForm(request.POST, request.FILES)
+		form = BookForm(request.POST, request.FILES, user=request.user)
 		if form.is_valid():	
 			fullform=form.save(commit=False)
 			fullform.lecturer=request.user
 			fullform.save()
 			messages.success(request, 'documents upload successfully! ')
 	else:
-		form=BookForm()
+		form=BookForm(user=request.user)
 		
 	return render(request, 'upload_book.html', {
-		'form':form
+		'form':form,
 		})
 @login_required
 @teacher_required
@@ -131,47 +133,68 @@ def Ylink(request):
 	ylinks=YLinks.objects.all()
 	if request.method=='POST':
 	
-		form=LinksForm(request.POST)
+		form=LinksForm(request.POST,user=request.user)
 		if form.is_valid():
 			form.save()
 			messages.success(request, 'The link has been sent! ')
 			# return redirect('linklist')
-
-	else:
-		form=LinksForm()
+	form=LinksForm(user=request.user)
 	
-		args={'form':form ,'yl+szinks':ylinks}		
+	
+	args={'form':form ,'ylinks':ylinks}		
 	return render(request, 'mylinks.html',args)
 def Ylink_list(request):
 	ylinks=YLinks.objects.all()
 	
 	return render(request,'Ylink_list.html',{'ylinks':ylinks})
-@login_required
-@teacher_required
+# @login_required
+# @teacher_required
 def Comm(request):
+	# print(request.user)
 	
 	DateW =request.POST.get('date_away')
 	comms=Comms.objects.filter(date=DateW)
+	courses = Unit.objects.filter(Instructor=request.user)
 	if request.method=='POST':
-		form=CommsForm(request.POST)
-		if form.is_valid():
-			fullform = form.save(commit=False)
-			fullform.lecturer=request.user
-			fullform.save()
-			messages.success(request, 'Message sent successfully! ')
+		course = request.POST.get('subject')
+		title = request.POST.get('title')
+		body = request.POST.get('body')
+		print(course)
+		print(title)
+		print(body)
+		com = Comms()
+		com.subject= Course.objects.get(pk=course)
+		com.Title = title
+		com.Body = body
+		com.lecturer=request.user
+		com.save()
+
+		# form=CommsForm(request.POST,user=request.user)
+		# unit = request.POST.get('subject')
+		# print(unit)
+		# unit_instance = Unit.objects.get(Instructor=request.user)
+		# form.subject =	unit_instance
+		
+		# fullform = form.save(commit=False)
+		# # fullform.subject = unit_instance
+		# fullform.lecturer=request.user
+		# fullform.save()
+		# print(unit)
+		# print(unit_instance)
+		messages.success(request, 'Message sent successfully! ')
 			# return redirect('Commlist')
-	else:
-		form=CommsForm()
+	# else:
+	# 	form=CommsForm(user=request.user)
 
 		# args={}
 
-	return render(request,'Comm.html',{'form':form,'comms':comms})
+	return render(request,'Comm.html',{'comms':comms, 'courses':courses})
 
 @login_required
 @student_required
 def Comm_List(request):
 
-	subjects=Subject.objects.filter(interested_students__user=request.user)
+	subjects=Course.objects.filter(interested_students__user=request.user)
 	comms= Comms.objects.filter(subject__in=subjects)
 	#comms=Subject.objects.filter(subject__=request.user)
    	# students = Comms.objects.all()
@@ -221,41 +244,116 @@ def  Upload_Comm(request):
 		name=fs.save(uploaded_file.name,uploaded_file)
 		context['url']= fs.url(name)
 	return render(request,'UploadComm.html',context)
-@login_required
-@teacher_required
-def period(request):
-	periods=Period.objects.all()
+
+
+def RegisterStudent(request):
+	if request.method == 'POST':
+		print(request.POST)
+		form = RegisterStudentForm(request.POST)
+		course = Course.objects.get(id=request.POST['course'])
+		students = course.interested_students.all()
+
+	else:	
+		students = []
+		form = RegisterStudentForm()
+	return render(request,'courses/View_register_student.html',context={'students':students, 'form': form})
+
+
+
+def RegisterCourse(request):
 	if request.method=='POST':
-		form=periodForm(request.POST)
+		form=RegisterCourseForm(request.POST, user=request.user)
+		print(request.POST)
 		if form.is_valid():
 			form.save()
 			messages.success(request, 'Message sent successfully! ')
-			# return redirect('y1s1list')
+			
 	else:
-		form=periodForm()
-		
-	return render(request,'courses/period.html',{'form':form,'periods':periods}
-)
+		form=RegisterCourseForm(user=request.user)
+	args={'form':form,}
+	return render(request,'courses/RegisterCourse.html',args)
+	
+
 @login_required
 @superuser_required
 def unit(request):
-	units=Unit.objects.all()
+	# units=Unit.objects.all()
+	# units=Unit.objects.all()
+
+	# print (units)
 	if request.method=='POST':
 		form=unitForm(request.POST)
 		if form.is_valid():
-			new_subject = Subject()
-			new_subject.name= request.POST['Code']
-			new_subject.save()
-			form.save()
-			messages.success(request, 'Message sent successfully! ')
+			# new_subject = Subject()
+			# new_subject.name= request.POST['Code']
+			# new_subject.save()
+			units = Unit.objects.filter(Instructor=request.POST['Instructor'])
+			unit1 = 0.0
+			for unit in units:
+				unit1+=unit.course.CF
+
+			course_cf = Course.objects.filter(id=request.POST['course'])[0]
+			unit1+=course_cf.CF
+			
+
+			if unit1 < 10:
+				form.save()
+				messages.success(request, 'Message sent successfully! ')
+			else:
+				messages.warning(request, "lecturer already have enough units")
 			# return redirect('unitlist')
 	else:
 		form=unitForm()
-	args={'form':form,'units':units}
+	args={'form':form,}
 	return render(request,'courses/unit.html',args)
 
+def load_course(request):
+	Period_id = request.GET.get('Period')
+	cities = Course.objects.filter(Period_id=Period_id).order_by('course_title')
+	cities_list = list(cities)  
+	return JsonResponse(cities_list, safe=False)
+	# return render(request, 'courses/cozdropdownlist.html', {'cities': cities})
 
 
+def load_cities(request):
+	print('loading cities')
+	Period_id = request.GET.get('Period')
+	print(Period_id)
+	cities = Course.objects.filter(Period_id=Period_id).order_by('course_title')
+	return render(request,'courses/cdropdown_list.html', {'cities': cities})
+
+import xlrd
+def UploadFile(request,f):
+	book = xlrd.open_workbook(file_contents=f.read())
+	for sheet in book.sheets():
+		number_of_rows = sheet.nrows
+		number_of_columns = sheet.ncols
+		for row in range(1, number_of_rows):
+			course_code = (sheet.cell(row, 0).value)
+			course_title = (sheet.cell(row, 1).value)
+			l = (sheet.cell(row, 2).value)
+			p = (sheet.cell(row, 3).value)
+			t = (sheet.cell(row, 4).value)
+			cf= (sheet.cell(row, 5).value)
+			period = (sheet.cell(row, 6).value)
+			course = Course()
+			course.course_code = course_code
+			course.course_title = course_title
+			course.L = l
+			course.P = p
+			course.T = t
+			course.CF = cf
+			mytime=Period.objects.filter(Period_time=period)[0]
+			course.Period = mytime
+			# course.semester = sem
+			course.save()
+
+def MyUnit(request):
+	if request.method =='POST':
+		 UploadFile(request, request.FILES['courses'])
+		 return redirect('unit')
+
+	return render(request, 'courses/create_courses.html',{} )
 def unit_List():
 	
 	y1s1=[]
@@ -268,25 +366,25 @@ def unit_List():
 	y4s2=[]
 	units=Unit.objects.all()
 	for unit in units:
-		if unit.Period_id == 22:
+		if unit.Period_id == 1:
 		  y1s1.append(unit)
 		  template='y1s1List.html'
-		elif unit.Period_id==23:
+		elif unit.Period_id==2:
 			y1s2.append(unit)
 			template='y1s2.List.html'
-		elif unit.Period_id==21:
+		elif unit.Period_id==3:
 			y2s1.append(unit)
 			template='y2s1List.html'
-		elif unit.Period_id==24:
+		elif unit.Period_id==4:
 			y2s2.append(unit)
 			template='y2s2List.html'
-		elif unit.Period_id==25:
+		elif unit.Period_id==5:
 			y3s1.append(unit)
 			template='y3s1List.html'
-		elif unit.Period_id==26:
+		elif unit.Period_id==6:
 			y3s2.append(unit)
 			template='y3s2List.html'
-		elif unit.Period_id==27:
+		elif unit.Period_id==7:
 			y4s1.append(unit)
 			template='y4s1List.html'
 		else :
@@ -408,8 +506,10 @@ def my_message(request):
 	return render(request,'students/Message.html',{'form':form,'mess':mess})
 def Message_List(request):
 	mess=Message.objects.all()
+	print(mess)
 	
 	return render(request,'students/MessageList.html',{'mess':mess})
+
 def view_mess(request, id):
 	mess = Message.objects.get(id=id)
 	return render(request, 'students/view_mess.html', {'mess':mess})

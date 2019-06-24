@@ -52,15 +52,63 @@ class SuperuserSignUpForm(UserCreationForm):
             user.save()
         return user
 
-class StudentSignUpForm(UserCreationForm):
+class RegisterCourseForm(forms.ModelForm):
+    Period = forms.ModelChoiceField(
+        queryset=Period.objects.all(),
+        empty_label=None,
+        )
+
     interests = forms.ModelMultipleChoiceField(
-        queryset=Subject.objects.all(),
+        queryset=Course.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=True
     )
+
+    class Meta:
+        model= Student
+        fields=('Period', 'interests',)
+
+
     def __init__(self, *args, **kwargs):
-        super(UserCreationForm, self).__init__(*args, **kwargs)
-        self.fields['password1'].help_text = ''
+        self.user = kwargs.pop('user')
+        super(RegisterCourseForm, self).__init__(*args, **kwargs)
+
+        # self.fields['interests'].queryset = Course.objects.none()
+
+
+        if 'Period' in self.data:
+            print('data from ajax'+str(self.data))
+            try:
+                Period_id = int(self.data.get('Period'))
+                self.fields['interests'].queryset = Course.objects.filter(Period_id=Period_id).order_by('course_title')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['interests'].queryset = self.instance.Period.course_set.order_by('course_title')
+        else:
+            print("imeingia")
+
+
+    def save(self):
+        student = Student.objects.filter(user=self.user)[0]
+        student.interests.add(*self.cleaned_data.get('interests'))
+        student.save()
+        return student
+
+        
+    
+
+class StudentSignUpForm(UserCreationForm):
+    interests = forms.ModelMultipleChoiceField(
+        queryset=Course.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True
+    )
+    
+    # def __init__(self, *args, **kwargs):
+    #     super(UserCreationForm, self).__init__(*args, **kwargs)
+    #     self.fields['password1'].help_text = ''
+        
 
             
 
@@ -133,23 +181,49 @@ class TakeQuizForm(forms.ModelForm):
 
 
 class BookForm(forms.ModelForm):
-	class Meta:
-		model=Book
-		fields=('Unit','Period','title','author','pdf','cover')
+    Unit = forms.ModelChoiceField(
+        queryset=None,
+        empty_label=None,
+        )
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super(BookForm, self).__init__(*args, **kwargs)
+        self.fields['Unit'].queryset =Unit.objects.filter(Instructor=user)
+    class Meta:
+        model=Book
+        # fields=('Period','Unit','title','author','pdf','cover')
+        fields=('Unit','title','author','pdf','cover')
+
 
 
 class LinksForm(forms.ModelForm):
-	class Meta:
-		model=YLinks
-		fields=('Unit','Period','mylink','title')
-		# i have used both widgets and crispy although i should have used one of them
-		widgets={'mylink':forms.TextInput(attrs={'class':'form-control','placeholder':'paste the link','name':'link'})}
+    Unit = forms.ModelChoiceField(
+        queryset=None,
+        empty_label=None,
+        )
+    def __init__(self,*args,**kwargs):
+        user = kwargs.pop('user')
+        super(LinksForm, self).__init__(*args, **kwargs)
+        self.fields['Unit'].queryset =Unit.objects.filter(Instructor=user)
+    class Meta:
+        model=YLinks
+        fields=('Unit','mylink','title')
+        # i have used both widgets and crispy although i should have used one of them
+        widgets={'mylink':forms.TextInput(attrs={'class':'form-control','placeholder':'paste the link','name':'link'})}
 		
 			
 class CommsForm(forms.ModelForm):
-	class Meta:
-		model=Comms
-		fields=('subject','Title','Body')
+    subject = forms.ModelChoiceField(
+        queryset=None,
+        empty_label=None,
+        )
+    def __init__(self,*args, **kwargs):
+        user = kwargs.pop('user')
+        super(CommsForm, self).__init__(*args, **kwargs)
+        self.fields['subject'].queryset =Unit.objects.filter(Instructor=user)
+    class Meta:
+        model=Comms
+        fields=('subject','Title','Body')
 class MessForm(forms.ModelForm):
     class Meta:
         model=Message
@@ -161,16 +235,61 @@ class ReplyForm(forms.ModelForm):
 	class Meta:
 		model=Replys
 		fields=['Content']
-class periodForm(forms.ModelForm):
-	class Meta:
-		model=Period
-		fields=['Year_semester']
-class unitForm(forms.ModelForm):
-	class Meta:
-		model=Unit
-		fields=('Period','Code','Title','Instructor','Cf')
 
-	
-	
-	
-# 	
+    
+
+class unitForm(forms.ModelForm):
+    # period = forms.ChoiceField()
+    Instructor = forms.ModelChoiceField(
+        queryset=None,
+        empty_label=None,
+        )
+   
+        
+    class Meta:
+        model=Unit
+        fields=('Period','course','Instructor', )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['course'].queryset = Course.objects.none()
+
+        super(unitForm, self).__init__(*args, **kwargs)
+        self.fields['Instructor'].queryset =User.objects.filter(is_teacher=True)
+
+        if 'Period' in self.data:
+            print('data from ajax'+str(self.data))
+            try:
+                Period_id = int(self.data.get('Period'))
+                self.fields['course'].queryset = Course.objects.filter(Period_id=Period_id).order_by('course_title')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['course'].queryset = self.instance.Period.course_set.order_by('course_title')
+        else:
+            print("imeingia")
+
+
+class RegisterStudentForm(forms.ModelForm):
+    class Meta:
+        model=Unit
+        fields=('Period','course')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['course'].queryset = Course.objects.none()
+
+        
+        if 'Period' in self.data:
+            print('data from ajax'+str(self.data))
+            try:
+                Period_id = int(self.data.get('Period'))
+                self.fields['course'].queryset = Course.objects.filter(Period_id=Period_id).order_by('course_title')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['course'].queryset = self.instance.Period.course_set.order_by('course_title')
+        else:
+            print("imeingia")
+
+            	

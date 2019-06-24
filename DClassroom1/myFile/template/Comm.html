@@ -12,7 +12,33 @@
 	
 	<form method="post" enctype="multipart/form-data">
 		{% csrf_token %}
-		{{form|crispy}}
+		<!-- {{form|crispy}} -->
+		<!-- <form> -->
+			<div class="form-group">
+		      <label for="inputState">Subject</label>
+		      <select id="inputState" class="form-control" name="subject" >
+		        {% for course in courses %}
+		        <option value="{{ course.course.id }}">{{ course.course.course_code }}</option>
+		        {% endfor %}
+		      </select>
+		    </div>
+  
+  <div class="form-group">
+    <label for="exampleInputPassword1">Title</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" name="title" required>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputEmail1">Body</label>
+    <textarea rows="4" cols="50" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="body" required></textarea>
+    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+  </div>
+  <!-- <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div> -->
+  <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+<!-- </form> -->
 		
 		<button type="submit" class="btn btn-outline-success btn-rounded waves-effect">Save</button>
 	</form>
