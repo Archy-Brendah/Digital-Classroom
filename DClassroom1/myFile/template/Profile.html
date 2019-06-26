@@ -1,4 +1,5 @@
-{% extends 'mybase.html '%}
+
+{% extends 'mybase.html' %}
 {% load static %}
 {% block content%}
 <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
@@ -6,12 +7,12 @@
 	<div class="col-lg-10 col-md-12">
 		<div class="card mb-4">
 			<div class="modal-header">
-        <img src="{% static 'images/ppic.png' " alt="avatar" class="rounded-circle img-responsive">
+        <img src="{% static 'images/ppic.png'%} " alt="avatar" class="rounded-circle img-responsive">
         <h1>{{user.last_name}}</h1>
 
       </div>
 
-			<!-- <img src="{% static 'images/breshh.jpg' %} " alt="My image" /> -->
+
 			<div class="card-body">
       	
         <div class="card-body">
