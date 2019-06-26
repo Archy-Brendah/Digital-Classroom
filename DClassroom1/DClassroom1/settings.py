@@ -27,7 +27,7 @@ SECRET_KEY = '$mhubcsp5d518rz)9shy0jj8(55ob)(qm$oc!%%78$lk)+a_mv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["archybrendah.pythonanywhere.com","127.0.0.1"]
 
 
 # Application definition
