@@ -39,6 +39,18 @@ class Home1(TemplateView):
     template_name = 'home1.html'
 
 
+class StudentHelp(TemplateView):
+    template_name = 'students/StudentHelp.html'
+
+
+class LecturerHelp(TemplateView):
+    template_name = 'teacher/LecturerHelp.html'
+
+
+class CodHelp(TemplateView):
+    template_name = 'teacher/CodHelp.html'
+
+
 class SignUpView(TemplateView):
     template_name = 'registration/signup.html'
 
@@ -554,6 +566,9 @@ def Message_List(request):
 
 def view_mess(request, title):
     mess = Message.objects.filter(Title=title)
+    for mes in mess:
+        mes.read = True
+        mes.save()
     return render(request, 'students/view_mess.html', {'mess': mess})
 
 

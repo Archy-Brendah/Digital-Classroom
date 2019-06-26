@@ -106,6 +106,7 @@ class Message(models.Model):
     Title = models.CharField(max_length=100)
     Content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
+    read=models.BooleanField(default=False)
     objects = models.Manager()
 
     class Meta:

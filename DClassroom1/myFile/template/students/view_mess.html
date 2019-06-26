@@ -16,7 +16,7 @@
         <div class="row">
 
 
-            <div class="col-md-4 " style="margin-top: 50px;">
+            <div class="col-lg-9 " style="margin-top: 50px;margin-left: 140px;">
                 {% for mess1 in  mess %}
 
 
@@ -24,8 +24,18 @@
                     <div class="card">
                         <!-- <h3>user</h3> -->
                         <div class="card-body">
+                            {% if mess1.sender == request.user %}
+                                <h4 style="color: #800f22">From... me</h4>
+                                {% else %}
+                                <h4 style="color: #800f22">From... {{ mess1.sender }}</h4>
+                                {% endif %}
+                        {% if mess1.Party == request.user %}
+                               <h4 style="color: dodgerblue">To ...me</h4>
+                                {% else %}
+                                <h4 style="color: dodgerblue">To ...{{ mess1.sender }}</h4
+                                {% endif %}
 
-                            {{ mess1.Title }}
+                           <b>{{ mess1.Title }}</b>
                             <p>{{ mess1.Content }}</p>
                             <p><i></i></p>
                             <p><i style="color: grey;font-size: 15px">{{ mess1.date }}</i></p>
