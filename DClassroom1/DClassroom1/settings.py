@@ -27,7 +27,7 @@ SECRET_KEY = '$mhubcsp5d518rz)9shy0jj8(55ob)(qm$oc!%%78$lk)+a_mv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["archybrendah.pythonanywhere.com","127.0.0.1"]
+ALLOWED_HOSTS = ['archybrendah.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
@@ -104,14 +104,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'ArchyBrendah',
         'PASSWORD': 'bresh1996',
-        'NAME': 'ArchyBrendah$digitalclassroom',
+        'NAME': 'ArchyBrendah$ArchyBrendah2',
         'HOST': 'ArchyBrendah.mysql.pythonanywhere-services.com',
         'PORT': '3306',
         'OPTIONS':{
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'charset': 'utf8mb4',
         },
-        
+
         'TEST':{
             'CHARSET': 'utf8mb4',
             'COLLATION': 'utf8mb4_unicode_ci',
