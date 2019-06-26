@@ -104,7 +104,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'ArchyBrendah',
         'PASSWORD': 'bresh1996',
-        'NAME': 'ArchyBrendah$ArchyBrendah2',
+        'NAME': 'ArchyBrendah$dcperfect',
         'HOST': 'ArchyBrendah.mysql.pythonanywhere-services.com',
         'PORT': '3306',
         'OPTIONS':{
