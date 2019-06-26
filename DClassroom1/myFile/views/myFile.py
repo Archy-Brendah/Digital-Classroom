@@ -573,7 +573,7 @@ def view_mess(request, title):
 
 
 def profile(request):
-    return render(request, 'profile.html')
+    return render(request, 'Profile.html')
 
 
 # chat
