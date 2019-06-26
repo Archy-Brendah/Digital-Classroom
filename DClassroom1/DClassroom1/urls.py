@@ -67,6 +67,7 @@ urlpatterns = [
 
     path('class/books', myFile.BookListView.as_view(), name='class_book_list'),
     path('class/books/upload', myFile.UploadBookView.as_view(), name='class_upload_book'),
+     path('Period/', myFile.period, name='period'),
 
     path('unit/', myFile.unit, name='unit'),
     path('unitlisty/', myFile.unit_List, name='unitlisty'),

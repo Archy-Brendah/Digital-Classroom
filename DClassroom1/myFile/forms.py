@@ -246,6 +246,10 @@ class ReplyForm(forms.ModelForm):
     class Meta:
         model = Replys
         fields = ['Content']
+class PeriodForm(forms.ModelForm):
+    class Meta:
+        model = Period
+        fields = ['Period_time']
 
 
 class unitForm(forms.ModelForm):

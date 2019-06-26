@@ -150,6 +150,20 @@ class UploadBookView(CreateView):
     template_name = 'upload_book.html'
 
 
+def period(request):
+    periods = Period.objects.all()
+    if request.method == 'POST':
+
+        form = PeriodForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'The Period has been saved! ')
+        # return redirect('linklist')
+    form = PeriodForm()
+
+    args = {'form': form, 'periods': periods}
+    return render(request, 'courses/Period.html', args)
+
 @login_required
 @teacher_required
 def Ylink(request):
