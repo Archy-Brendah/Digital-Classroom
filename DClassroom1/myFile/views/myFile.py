@@ -162,7 +162,7 @@ def period(request):
     form = PeriodForm()
 
     args = {'form': form, 'periods': periods}
-    return render(request, 'courses/Period.html', args)
+    return render(request, 'courses/period.html', args)
 
 @login_required
 @teacher_required
