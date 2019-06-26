@@ -1,8 +1,12 @@
 <ul class="nav nav-tabs mb-3">
+  
+  <li class="nav-item">
+    <a class="nav-link{% if active == 'taken' %} active{% endif %}" href="{% url 'MessageList' %}"style="font-size: 20px;color:rgb(165,42,42)"><i class="fab fa-rocketchat"></i>  New mess</a>
+  </li>
   <li class="nav-item">
     <a class="nav-link{% if active == 'sent' %} active{% endif %}" href="#">sent</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link{% if active == 'taken' %} active{% endif %}" href="{% url 'MessageList' %}"style="font-size: 20px;color:rgb(165,42,42)"><i class="fab fa-rocketchat"></i>  New mess</a>
+    <a class="nav-link{% if active == 'sent' %} active{% endif %}" href="{%url  'Message' %}">Compose</a>
   </li>
 </ul>

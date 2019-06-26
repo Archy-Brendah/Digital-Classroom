@@ -1,68 +1,85 @@
-           
- 
- {%extends 'students/MessageList.html'%}
+
+
+{% extends 'students/MessageList.html' %}
 
 {% load crispy_forms_tags %}
 {% load staticfiles %}
-{%load static %}
+{% load static %}
 <head></head>
-       
-    
-
-           
-{% block content%}
-
-<div class="container-fluid">
-  <div class="row">
-     
- 
-    <div class="col-md-4 " style="margin-top: 50px;">
-    	
-<div class="card">
-	<!-- <h3>user</h3> -->
-	<div class="card-body">
-	
-	<h4>{{mess.Title}}</h3>
-	<p>{{mess.Content}}</p>
-	<p><i></i></p>
-	<p><i style="color: grey;font-size: 15px">{{mess.date}}</i></p>
-	
-</div>
 
 
 
 
-<div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Reply this message</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
+{% block content %}
 
-        <div class="md-form">
-          <i class="fas fa-pencil prefix grey-text"></i>
-          <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
-          <label data-error="wrong" data-success="right" for="form8">Your message</label>
+    <div class="container-fluid">
+        <div class="row">
+
+
+            <div class="col-md-4 " style="margin-top: 50px;">
+                {% for mess1 in  mess %}
+
+
+                    {% if mess1.sender == request.user or mess1.Party == request.user %}
+                    <div class="card">
+                        <!-- <h3>user</h3> -->
+                        <div class="card-body">
+
+                            {{ mess1.Title }}
+                            <p>{{ mess1.Content }}</p>
+                            <p><i></i></p>
+                            <p><i style="color: grey;font-size: 15px">{{ mess1.date }}</i></p>
+
+                        </div>
+
+
+                        <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100 font-weight-bold">Reply this message</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="/Reply" method="post">
+                                        <div class="modal-body mx-3">
+
+                                            <div class="md-form">
+                                                <i class="fas fa-pencil prefix grey-text"></i>
+                                                {% csrf_token %}
+                                                <textarea type="text" id="form8" name="content"
+                                                          class="md-textarea form-control"
+                                                          rows="4"></textarea>
+                                                <input type="hidden" name="mess_object" value="{{ mess1.id }}">
+                                                <label data-error="wrong" data-success="right" for="form8">Your
+                                                    message</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <button class="btn btn-outline-unique">Send <i
+                                                    class="fas fa-paper-plane-o ml-1"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="text-center">
+                            <a href="" class="btn  btn-rounded mb-4" data-toggle="modal"
+                               data-target="#modalContactForm"><b
+                                    style="color: grey;"><i class="fas fa-reply-all"></i> Reply</b></a>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
-
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-outline-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
-      </div>
     </div>
-  </div>
-</div>
-
-<div class="text-center">
-  <a href="" class="btn  btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><b style="color: grey;"><i class="fas fa-reply-all"></i> Reply</b></a>
-</div>
-</div>
-</div>
-</div>
 {% endblock %}
 

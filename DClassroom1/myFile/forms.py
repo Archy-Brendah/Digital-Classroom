@@ -5,24 +5,27 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.forms.utils import ValidationError
 from django.forms.widgets import CheckboxSelectMultiple
+from django.core.exceptions import ValidationError
 
 
 class TeacherSignUpForm(UserCreationForm):
-    def __init__(self, *args, **kwargs):
-        super(UserCreationForm, self).__init__(*args, **kwargs)
-        self.fields['password1'].help_text = ''
+    phone_regex = RegexValidator(regex=r'^[S][0-9]{4,5}$',
+                                 message="Enter correct EmpNo")
+    first_name = forms.CharField(validators=[phone_regex], max_length=100, widget=forms.TextInput(),label='EmpId')
+
+    # def __init__(self, *args, **kwargs):
+    #     super(UserCreationForm, self).__init__(*args, **kwargs)
+    #     self.fields['password1'].help_text = ''
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields= ('username','first_name','last_name','email','password1', 'password2',)
+
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
         labels = {
-        "first_name": "EmpId",
-        "last_name":"Full_name"
-    }
-        
-    
-       
-	
+            "first_name": "EmpId",
+            "last_name": "Full_name"
+        }
+
     def save(self, commit=True):
         user = super().save(commit=False)
         user.is_teacher = True
@@ -30,20 +33,23 @@ class TeacherSignUpForm(UserCreationForm):
             user.save()
         return user
 
+
 class SuperuserSignUpForm(UserCreationForm):
-    def __init__(self, *args, **kwargs):
-        super(UserCreationForm, self).__init__(*args, **kwargs)
-        self.fields['password1'].help_text = ''
+    phone_regex = RegexValidator(regex=r'^[S][0-9]{4,5}$',
+                                 message="Enter correct EmpNo")
+    first_name = forms.CharField(validators=[phone_regex], max_length=100, widget=forms.TextInput(), label='EmpId')
+
+    # def __init__(self, *args, **kwargs):
+    #     super(UserCreationForm, self).__init__(*args, **kwargs)
+    #     self.fields['password1'].help_text = ''
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields= ('username','first_name','last_name','email','password1', 'password2',)
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
         labels = {
-        "first_name": "EmpId",
-        "last_name":"Full_name"
-    }
-        
-       
+            "first_name": "EmpId",
+            "last_name": "Full_name"
+        }
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -52,11 +58,12 @@ class SuperuserSignUpForm(UserCreationForm):
             user.save()
         return user
 
+
 class RegisterCourseForm(forms.ModelForm):
     Period = forms.ModelChoiceField(
         queryset=Period.objects.all(),
         empty_label=None,
-        )
+    )
 
     interests = forms.ModelMultipleChoiceField(
         queryset=Course.objects.all(),
@@ -65,9 +72,8 @@ class RegisterCourseForm(forms.ModelForm):
     )
 
     class Meta:
-        model= Student
-        fields=('Period', 'interests',)
-
+        model = Student
+        fields = ('Period', 'interests',)
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
@@ -75,9 +81,8 @@ class RegisterCourseForm(forms.ModelForm):
 
         # self.fields['interests'].queryset = Course.objects.none()
 
-
         if 'Period' in self.data:
-            print('data from ajax'+str(self.data))
+            print('data from ajax' + str(self.data))
             try:
                 Period_id = int(self.data.get('Period'))
                 self.fields['interests'].queryset = Course.objects.filter(Period_id=Period_id).order_by('course_title')
@@ -88,39 +93,38 @@ class RegisterCourseForm(forms.ModelForm):
         else:
             print("imeingia")
 
-
     def save(self):
         student = Student.objects.filter(user=self.user)[0]
         student.interests.add(*self.cleaned_data.get('interests'))
         student.save()
         return student
 
-        
-    
 
 class StudentSignUpForm(UserCreationForm):
-    interests = forms.ModelMultipleChoiceField(
-        queryset=Course.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=True
-    )
-    
+    # interests = forms.ModelMultipleChoiceField(
+    #     queryset=Course.objects.all(),
+    #     widget=forms.CheckboxSelectMultiple,
+    #     required=True
+    # )
+
     # def __init__(self, *args, **kwargs):
     #     super(UserCreationForm, self).__init__(*args, **kwargs)
     #     self.fields['password1'].help_text = ''
-        
-
-            
+    phone_regex = RegexValidator(regex=r'^[S][P]{0,1}[1][3]/[0-9]{5,6}/[0-9]{2}$',
+                                 message="Enter correct EmpNo")
+    first_name = forms.CharField(validators=[phone_regex], max_length=100, widget=forms.TextInput(),label='RegNo')
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields= ('username','first_name','last_name','email','password1', 'password2',)
-       
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
+
         labels = {
-        "first_name": "RegNumber",
-        "last_name":"Full_name"
-    }
-    
+            "first_name": "RegNumber",
+            "last_name": "Full_name"}
+        widgets = {
+            'first_name': TextInput(attrs={'pattern': '^[S][P]{0,1}[1][3]/[0-9]{5,6}/[0-9]{2}$', 'title': 'Title'})
+
+        }
 
     @transaction.atomic
     def save(self):
@@ -128,25 +132,23 @@ class StudentSignUpForm(UserCreationForm):
         user.is_student = True
         user.save()
         student = Student.objects.create(user=user)
-        student.interests.add(*self.cleaned_data.get('interests'))
+        # student.interests.add(*self.cleaned_data.get('interests'))
         return user
-
 
 
 class StudentInterestsForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ('interests', )
+        fields = ('interests',)
         widgets = {
             'interests': forms.CheckboxSelectMultiple
         }
 
-            
-        
+
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ('text', )
+        fields = ('text',)
 
 
 class BaseAnswerInlineFormSet(forms.BaseInlineFormSet):
@@ -172,7 +174,7 @@ class TakeQuizForm(forms.ModelForm):
 
     class Meta:
         model = StudentAnswer
-        fields = ('answer', )
+        fields = ('answer',)
 
     def __init__(self, *args, **kwargs):
         question = kwargs.pop('question')
@@ -184,81 +186,88 @@ class BookForm(forms.ModelForm):
     Unit = forms.ModelChoiceField(
         queryset=None,
         empty_label=None,
-        )
+    )
+
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
         super(BookForm, self).__init__(*args, **kwargs)
-        self.fields['Unit'].queryset =Unit.objects.filter(Instructor=user)
-    class Meta:
-        model=Book
-        # fields=('Period','Unit','title','author','pdf','cover')
-        fields=('Unit','title','author','pdf','cover')
+        self.fields['Unit'].queryset = Unit.objects.filter(Instructor=user)
 
+    class Meta:
+        model = Book
+        # fields=('Period','Unit','title','author','pdf','cover')
+        fields = ('Unit', 'title', 'author', 'pdf', 'cover')
 
 
 class LinksForm(forms.ModelForm):
     Unit = forms.ModelChoiceField(
         queryset=None,
         empty_label=None,
-        )
-    def __init__(self,*args,**kwargs):
+    )
+
+    def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
         super(LinksForm, self).__init__(*args, **kwargs)
-        self.fields['Unit'].queryset =Unit.objects.filter(Instructor=user)
+        self.fields['Unit'].queryset = Unit.objects.filter(Instructor=user)
+
     class Meta:
-        model=YLinks
-        fields=('Unit','mylink','title')
+        model = YLinks
+        fields = ('Unit', 'mylink', 'title')
         # i have used both widgets and crispy although i should have used one of them
-        widgets={'mylink':forms.TextInput(attrs={'class':'form-control','placeholder':'paste the link','name':'link'})}
-		
-			
+        widgets = {
+            'mylink': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'paste the link', 'name': 'link'})}
+
+
 class CommsForm(forms.ModelForm):
     subject = forms.ModelChoiceField(
         queryset=None,
         empty_label=None,
-        )
-    def __init__(self,*args, **kwargs):
+    )
+
+    def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
         super(CommsForm, self).__init__(*args, **kwargs)
-        self.fields['subject'].queryset =Unit.objects.filter(Instructor=user)
-    class Meta:
-        model=Comms
-        fields=('subject','Title','Body')
-class MessForm(forms.ModelForm):
-    class Meta:
-        model=Message
-        fields=('Party','Title','Content')
+        self.fields['subject'].queryset = Unit.objects.filter(Instructor=user)
 
+    class Meta:
+        model = Comms
+        fields = ('subject', 'Title', 'Body')
+
+
+class MessForm(forms.ModelForm):
+    party = forms.CharField(max_length=30)
+
+    class Meta:
+        model = Message
+        fields = ('party', 'Title', 'Content')
 
 
 class ReplyForm(forms.ModelForm):
-	class Meta:
-		model=Replys
-		fields=['Content']
+    class Meta:
+        model = Replys
+        fields = ['Content']
 
-    
 
 class unitForm(forms.ModelForm):
     # period = forms.ChoiceField()
     Instructor = forms.ModelChoiceField(
         queryset=None,
         empty_label=None,
-        )
-   
-        
+    )
+
     class Meta:
-        model=Unit
-        fields=('Period','course','Instructor', )
+        model = Unit
+        fields = ('Period', 'course', 'Instructor',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['course'].queryset = Course.objects.none()
 
         super(unitForm, self).__init__(*args, **kwargs)
-        self.fields['Instructor'].queryset =User.objects.filter(is_teacher=True)
+        self.fields['Instructor'].queryset = User.objects.filter(is_teacher=True)
 
         if 'Period' in self.data:
-            print('data from ajax'+str(self.data))
+            print('data from ajax' + str(self.data))
             try:
                 Period_id = int(self.data.get('Period'))
                 self.fields['course'].queryset = Course.objects.filter(Period_id=Period_id).order_by('course_title')
@@ -272,16 +281,15 @@ class unitForm(forms.ModelForm):
 
 class RegisterStudentForm(forms.ModelForm):
     class Meta:
-        model=Unit
-        fields=('Period','course')
+        model = Unit
+        fields = ('Period', 'course')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['course'].queryset = Course.objects.none()
 
-        
         if 'Period' in self.data:
-            print('data from ajax'+str(self.data))
+            print('data from ajax' + str(self.data))
             try:
                 Period_id = int(self.data.get('Period'))
                 self.fields['course'].queryset = Course.objects.filter(Period_id=Period_id).order_by('course_title')
@@ -291,5 +299,3 @@ class RegisterStudentForm(forms.ModelForm):
             self.fields['course'].queryset = self.instance.Period.course_set.order_by('course_title')
         else:
             print("imeingia")
-
-            	

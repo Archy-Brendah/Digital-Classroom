@@ -68,17 +68,21 @@
 
 <section id="hero" >
   {% load static %}
-    <img src="{% static 'images/kisumu.jpg' %} " alt="My image" width="100%" height="650px" />
+  <div class="view" style="background-image: url({% static 'images/kisumu.jpg' %});height: 730px;width: 100%;background-repeat: no-repeat;background-size: cover;">
+     <div class="text-center white-text wow fadeIn" style="font-family: cursive;margin-top: 20%;font-size: 30px;">
+      <h1> Digital Classroom For Egerton University </h1>
+<p>  The Digital Classroom is established to serve Computer Science Department</p>
+<a class=" btn btn-outline-white btn-lg ">Go Digital  </a>
+    </div>
+
+  </div>
+  
+    <!-- <img src="{% static 'images/kisumu.jpg' %} " alt="My image" width="100%" height="650px" /> -->
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
   <div class="h-txt>
     <div class="starter-template">
-      <h1 class="text-center" style="color: grey;font-family: cursive;"><i> Digital Classroom For E.U. </i></h1>
+     <!--  <h1 class="text-center" style="color: grey;font-family: cursive;"><i> Digital Classroom For E.U. </i></h1> -->
       <p class="lead" ></p>
       <hr>
 <div class="container">
@@ -189,9 +193,9 @@ $(window).scroll(function(){
       <div class="">
           
   
-      <a href="" class="white-text mr-md-5 mr-3 fa-2x"><i class="far fa-eye"></i>  About Us</a>
+      <a href="about" class="white-text mr-md-5 mr-3 fa-2x"><i class="far fa-eye"></i>  About Us</a>
     
-      <a href="" class="white-text mr-md-5 mr-3 fa-2x"><i class="far fa-address-card"></i>  Contact Us</a>
+      <a href="contact" class="white-text mr-md-5 mr-3 fa-2x"><i class="far fa-address-card"></i>  Contact Us</a>
   
   
       <a href="" class="white-text mr-md-5 mr-3 fa-2x"><i class="fas fa-envelope-open-text"></i>  Talk To us</a>

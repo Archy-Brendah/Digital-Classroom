@@ -6,6 +6,27 @@
 
 {% block content%} 
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.1/css/mdb.min.css" rel="stylesheet">
+
+
+
+        <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+                  <!--JQuery-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+                  <!--Bootstrap core JavaScript-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+                  <!--MDB core JavaScript-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.1/js/mdb.min.js"></script>
+
+
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 	       
     </head>
@@ -47,12 +68,14 @@
   </thead>
   <tbody>
     {% for comm in mess %}
+        {% if comm.sender == request.user or comm.Party == request.user %}
+        {% ifchanged comm.Title %}
+            <tr>
+      <td><p><strong><a href="{% url 'view_mess' comm.Title %}" style="font-size: 22px;">{{comm.Title}}<i style="color: grey;font-size: 15px;">{{comm.date}}</i> </strong></a></p></td>
 
-     <tr>
-      <td><p><strong><a href="{% url 'view_mess' comm.id %}" style="font-size: 22px;">{{comm.Title}} from {{comm.lecturer}}    <i style="color: grey;font-size: 15px;">{{comm.date}}</i> </strong></a></p></td>
-      
-    
     </tr>
+        {% endifchanged %}
+        {% endif %}
     
    
     {% endfor %}
@@ -71,6 +94,6 @@
 
 </form>
 
-	
+
 	
 {% endblock %}

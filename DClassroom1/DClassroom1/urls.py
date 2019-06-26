@@ -42,6 +42,8 @@ urlpatterns = [
 
     path('',myFile.Home.as_view(),name='home'),
     path('home',myFile.Home1.as_view(),name='home1'),
+    path('about/',myFile.About.as_view(),name='about'),
+    path('contact/',myFile.Contact.as_view(),name='contact'),
 
     path('upload/', myFile.upload,name='upload'),
     path('books/', myFile.book_list, name='book_list'),
@@ -59,7 +61,7 @@ urlpatterns = [
     path('Comm/view/<int:id>/', myFile.view_message, name='view_message'),
     path('Message',myFile.my_message,name='Message'),
     path('Message/MessageList',myFile.Message_List,name='MessageList'),
-    path('Message/view/<int:id>/',myFile.view_mess,name='view_mess'),
+    path('Message/view/<title>/',myFile.view_mess,name='view_mess'),
    
     path('Reply',myFile.Reply,name='Reply'),
     path('Reply/Replylist',myFile.Reply_List,name='Replylist'),
@@ -95,8 +97,8 @@ urlpatterns = [
     path('profile/',myFile.profile,name='profile'),
     path('add/units/', myFile.MyUnit, name='create_units'),
 
-    path('chat/',myFile.index,name='index'),
-    re_path(r'^(?P<room_name>[^/]+)/$', myFile.room, name='room'),
+    # path('chat/',myFile.index,name='index'),
+    # re_path(r'^(?P<room_name>[^/]+)/$', myFile.room, name='room'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
