@@ -102,10 +102,10 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'USER': 'root',
-        'PASSWORD': '',
-        'NAME': 'dclassroom1',
-        'HOST': 'localhost',
+        'USER': 'ArchyBrendah',
+        'PASSWORD': 'bresh1996',
+        'NAME': 'ArchyBrendah$digitalclassroom',
+        'HOST': 'ArchyBrendah.mysql.pythonanywhere-services.com',
         'PORT': '3306',
         'OPTIONS':{
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
@@ -176,3 +176,14 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+
+ORS_REPLACE_HTTPS_REFERER      = True
+HOST_SCHEME                     = "https://"
+SECURE_PROXY_SSL_HEADER         = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT             = True
+SESSION_COOKIE_SECURE           = True
+CSRF_COOKIE_SECURE              = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
+SECURE_HSTS_SECONDS             = 1000000
+SECURE_FRAME_DENY               = True
