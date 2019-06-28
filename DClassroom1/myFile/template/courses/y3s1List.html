@@ -17,8 +17,9 @@
 			<th>Period</th>
 			<th>Code</th>
 			<th>Tittle</th>
-			<th>Instructor</th>
+
 			<th>Cf</th>
+            <th>Instructor</th>
 			
 		</tr>
 	</thead>
@@ -33,10 +34,11 @@
 				{{ unit.course}}
 			
 			</td>
-			<td>{{ unit.Title }}</td>
-			<td>{{ unit.Instructor }}</td>
-			<td>{{unit.Cf}}
+			<td>{{ unit.course.course_title }}</td>
+
+			<td>{{unit.course.Cf}}
 			</td>
+        <td>{{ unit.Instructor }}</td>
 		
 		</tr>
 		{% endfor %}
