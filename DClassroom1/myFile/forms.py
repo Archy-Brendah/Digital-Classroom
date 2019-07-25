@@ -110,8 +110,8 @@ class StudentSignUpForm(UserCreationForm):
     # def __init__(self, *args, **kwargs):
     #     super(UserCreationForm, self).__init__(*args, **kwargs)
     #     self.fields['password1'].help_text = ''
-    phone_regex = RegexValidator(regex=r'^[S][P]{0,1}[1][3]/[0-9]{5,6}/[0-9]{2}$',
-                                 message="Enter correct EmpNo")
+    phone_regex = RegexValidator(regex=r'^[A-Z]{3}/[0-9]{3}/[0-9]{2}$',
+                                 message="Enter correct RegNo")
     first_name = forms.CharField(validators=[phone_regex], max_length=100, widget=forms.TextInput(),label='RegNo')
 
     class Meta(UserCreationForm.Meta):
